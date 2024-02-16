@@ -67,5 +67,18 @@ router.get('/displayTweetList', (req, res) => {
         res.status(500).json({ error: "Error fetching tweets" });
     });
 });
-
+//route qui permet d'afficher la liste des utilisateurs
+router.get('/listOfUsers', (req, res) => {
+    User.find().then(data => {
+        if (data.length === 0) {
+            res.json({ result: 'Liste de Users vide' });
+        } else {
+            res.json({ result: true, data: data });
+        }
+    }).catch(err => {
+        console.error("Error fetching tweets:", err);
+        res.status(500).json({ error: "Error fetching tweets" });
+    });
+  });
+  
 module.exports = router;
