@@ -55,13 +55,17 @@ router.delete('/deleteTweet', (req, res) => {
 });
 
 
-
-
-module.exports = router;
-
-
-
-
-
+router.get('/displayTweetList', (req, res) => {
+    Tweet.find().then(data => {
+        if (data.length === 0) {
+            res.json({ result: 'Liste de tweet vide' });
+        } else {
+            res.json({ result: true, data: data });
+        }
+    }).catch(err => {
+        console.error("Error fetching tweets:", err);
+        res.status(500).json({ error: "Error fetching tweets" });
+    });
+});
 
 module.exports = router;
